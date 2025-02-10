@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Gestión de Inventario</h1>
+
+    <form action="/add" method="post">
+        <input type="text" name="name" placeholder="Nombre del artículo" required>
+        <input type="number" name="quantity" placeholder="Cantidad" required>
+        <input type="text" name="size" placeholder="Talla (ej. S, M, L)" required>
+        <button type="submit">Agregar / Actualizar</button>
+    </form>
+
+    <form action="/update" method="post">
+        <input type="text" name="name" placeholder="Nombre del artículo - Talla" required>
+        <input type="number" name="quantity" placeholder="Nueva cantidad" required>
+        <button type="submit">Actualizar cantidad</button>
+    </form>
+
+    <form action="/delete" method="post">
+        <input type="text" name="name" placeholder="Nombre del artículo - Talla" required>
+        <button type="submit">Eliminar</button>
+    </form>
+
+    <form action="/reset" method="post">
+        <button type="submit" style="background-color: red; color: white;">Resetear Inventario</button>
+    </form>
+
+    <h2>Inventario Actual</h2>
+    <table border="1">
+        <tr>
+            <th>Artículo</th>
+            <th>Cantidad</th>
+            <th>Talla</th>
+        </tr>
+        {% for name, info in inventory.items() %}
+        <tr>
+            <td>{{ name }}</td>
+            <td>{{ info['quantity'] }}</td>
+            <td>{{ info['size'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Historial de Inventario</h2>
+    <a href="/history">Ver Historial Completo</a>
+
+</body>
+</html>
